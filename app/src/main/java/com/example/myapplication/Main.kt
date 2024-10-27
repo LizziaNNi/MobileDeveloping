@@ -17,4 +17,6 @@ fun main ()
     val x4 = x2 * x2
     val resultC = x4 * a
     println("в) x^5 = $resultC")
+
+    z2v15()
 }
