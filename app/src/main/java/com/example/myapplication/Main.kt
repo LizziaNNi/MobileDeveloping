@@ -19,4 +19,6 @@ fun main ()
     println("в) x^5 = $resultC")
 
     z2v15()
+
+    z3v15()
 }

@@ -14,4 +14,18 @@ fun z2v15() {
     } else {
         println("no")
     }
+
+
+    val q = 3
+    val w= 6
+    val e = 4
+
+
+    val result = when {
+        (q < 5 && w < 5 && e >= 5) || (q < 5 && w >= 5 && e < 5) || (q >= 5 && w < 5 && e < 5) -> "yes"
+        else -> "no"
+    }
+
+
+    println(result)
 }
