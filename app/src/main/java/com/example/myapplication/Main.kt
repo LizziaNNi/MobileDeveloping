@@ -23,4 +23,10 @@ fun main ()
     z3v15()
 
     z4v2()
+
+    val circle = Circle("Red", true, 5.0)
+    val rectangle = Rectangle("Blue", false, 4.0, 6.0)
+
+    circle.printInfo()
+    rectangle.printInfo()
 }
