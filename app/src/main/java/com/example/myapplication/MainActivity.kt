@@ -9,9 +9,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.example.myapplication.ui_components.DrawerMenu
 import com.example.myapplication.ui_components.MainTopBar
+import kotlinx.coroutines.launch
+import com.example.myapplication.utils.DrawerEvents
+
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -20,6 +24,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val scaffoldState = rememberScaffoldState()
+            val coroutineScope = rememberCoroutineScope()
             val topBarTitle = remember {
                 mutableStateOf("Грибы")
             }
@@ -33,7 +38,16 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                     drawerContent = {
-                        DrawerMenu()
+                        DrawerMenu(){ event ->
+                            when(event){
+                                is DrawerEvents.OnItemClick ->{
+                                    topBarTitle.value = event.title
+                                }
+                            }
+                            coroutineScope.launch {
+                                scaffoldState.drawerState.close()
+                            }
+                        }
                     }
                 ){
 
