@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.myapplication"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -50,7 +50,7 @@ android {
 }
 
 dependencies {
-
+    implementation("com.android.volley:volley:1.2.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
