@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -20,11 +21,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.myapplication.screens.MainScreen
+import com.example.myapplication.screens.MainCard
+import com.example.myapplication.screens.TabLayout
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import org.json.JSONObject
 
@@ -35,7 +40,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                MainScreen()
+                Image(
+                    painter = painterResource(id = R.drawable.weather),
+                    contentDescription = "im1",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .alpha(0.7f),
+                    contentScale = ContentScale.Crop
+                )
+                Column {
+                    MainCard()
+                    TabLayout()
+                }
             }
         }
     }
