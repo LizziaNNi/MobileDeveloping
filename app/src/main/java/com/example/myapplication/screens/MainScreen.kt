@@ -1,6 +1,5 @@
 package com.example.myapplication.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
@@ -30,7 +28,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -42,9 +39,9 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
-@Preview(showBackground = true)
+
 @Composable
-fun MainCard() {
+fun MainCard(currentDay: MutableState<WeatherModel>) {
     Column(
         modifier = Modifier
             .padding(5.dp),
@@ -73,12 +70,12 @@ fun MainCard() {
                     ) {
                         Text(
                             modifier = Modifier.padding(top = 8.dp),
-                            text = "20 Jun 2022 13:00",
+                            text = currentDay.value.time,
                             style = TextStyle(fontSize = 15.sp),
                             color = Color.White
                         )
                         AsyncImage(
-                            model = "https://cdn.weatherapi.com/weather/64x64/day/116.png",
+                            model = "https:" + currentDay.value.icon,
                             contentDescription = "im2",
                             modifier = Modifier
                                 .padding(
@@ -89,17 +86,17 @@ fun MainCard() {
                         )
                     }
                     Text(
-                        text = "Madrid",
+                        text = currentDay.value.city,
                         style = TextStyle(fontSize = 25.sp),
                         color = Color.White
                     )
                     Text(
-                        text = "23°C",
+                        text = currentDay.value.currentTemp.toFloat().toInt().toString() + "°C",
                         style = TextStyle(fontSize = 65.sp),
                         color = Color.White
                     )
                     Text(
-                        text = "Sunny",
+                        text = currentDay.value.condition,
                         style = TextStyle(fontSize = 16.sp),
                         color = Color.White
                     )
@@ -118,7 +115,9 @@ fun MainCard() {
                             )
                         }
                         Text(
-                            text = "23°C/12°C",
+                            text = "${currentDay.value
+                                .maxTemp.toFloat().toInt()}°C/${currentDay
+                                .value.minTemp.toFloat().toInt()}°C",
                             style = TextStyle(fontSize = 16.sp),
                             color = Color.White
                         )
@@ -139,7 +138,7 @@ fun MainCard() {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun TabLayout(daysList: MutableState<List<WeatherModel>>) {
     val tabList = listOf("HOURS", "DAYS")
